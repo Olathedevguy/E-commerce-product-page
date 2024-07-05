@@ -48,6 +48,20 @@ const updateTotalQty = () => {
 }
 
 
+
+const removeItemFromCart = (cartItem) => {
+    cartItem.remove();
+    updateTotalQty();    
+
+    if (cartItems.children.length === 1) {
+
+        cartItems.classList.add('empty');
+        checkout.classList.add('empty');
+        
+    }
+}
+
+
 const addItemToCart = ((name, price, imgSrc) =>{
     const totalPrice = price * count;
 
@@ -77,6 +91,15 @@ const addItemToCart = ((name, price, imgSrc) =>{
     }
 
     updateTotalQty();
+
+
+    //event listener to delete button
+    const deleteButton = cartItem.querySelector('.delete-items');
+    deleteButton.addEventListener('click', (event)=>{
+        const cartItem = event.target.closest('.cart-item');
+        removeItemFromCart(cartItem);
+        
+    })
 })
 
 addToCartBtn.addEventListener('click', ()=>{
